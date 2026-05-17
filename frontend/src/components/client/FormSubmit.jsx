@@ -34,21 +34,6 @@ function FormSubmit() {
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    // if (
-    //   !input.fullname ||
-    //   !input.phoneNumber ||
-    //   !input.email ||
-    //   !input.amount ||
-    //   !input.danDate
-    // ) {
-    //   toast.error("Please fill all required fields");
-    //   return;
-    // }
-
-    // if (!input.file) {
-    //   toast.error("Please upload payment screenshot");
-    //   return;
-    // }
     const formData = new FormData();
     formData.append("fullname", input.fullname);
     formData.append("phoneNumber", input.phoneNumber);
