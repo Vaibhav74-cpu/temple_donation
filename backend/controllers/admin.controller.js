@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { User } from "../model/User.model.js";
+import { User } from "../model/user.model.js";
 import {
   ADMIN_PASSWORD,
   ADMIN_USERNAME,
