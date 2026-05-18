@@ -18,7 +18,7 @@ const useGetAllDonors = () => {
           return;
         }
 
-        const res = await axios.get(`${ADMIN_API_ENDPOINT}/donors`, {
+        const res = await axios.get(`https://temple-donation-bu0g.onrender.com/api/v1/admin/donors`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

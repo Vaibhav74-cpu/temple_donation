@@ -26,7 +26,7 @@ function AdminPage() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`${ADMIN_API_ENDPOINT}/login`, {
+      const res = await axios.post(`https://temple-donation-bu0g.onrender.com/api/v1/admin/login`, {
         username: input.username,
         password: input.password,
       });
