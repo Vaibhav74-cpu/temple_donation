@@ -1,6 +1,5 @@
-
-import cloudinary from '../utils/cloudinary.js'
-import getDataUri from '../utils/dataUri.js'
+import cloudinary from "../utils/cloudinary.js";
+import getDataUri from "../utils/dataUri.js";
 import { User } from "../model/user.model.js";
 
 export const userData = async (req, res) => {
@@ -47,6 +46,21 @@ export const userData = async (req, res) => {
     return res.status(500).json({
       success: false,
       message: "internal server error",
+    });
+  }
+};
+
+
+export const deleteUserData = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (user) {
+      await User.deleteOne({ _id: user._id });
+      res.status(200).json({ message: "User deleted" });
+    }
+  } catch (error) {
+    res.status(404).json({
+      message: "User not found",
     });
   }
 };

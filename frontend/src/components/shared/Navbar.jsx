@@ -44,16 +44,6 @@ const Navbar = () => {
                 DAN
               </NavLink>
             </li>
-            <li>
-              <NavLink
-                to="/admin/login"
-                className={({ isActive }) =>
-                  isActive ? "underline" : " hover:underline"
-                }
-              >
-                ADMIN
-              </NavLink>
-            </li>
           </ul>
         </div>
         <button className="md:hidden" onClick={() => setOpen(!open)}>

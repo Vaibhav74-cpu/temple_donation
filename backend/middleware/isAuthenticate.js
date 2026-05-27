@@ -8,6 +8,7 @@ const isAuthenticate = async (req, res, next) => {
   try {
     let token;
     token = req.cookies.jwt;
+    console.log("token", token);
 
     if (!token) {
       return res.status(401).json({
@@ -17,17 +18,18 @@ const isAuthenticate = async (req, res, next) => {
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    user = await User.findById(decoded.userId).select("-password");
-
-    if (!user) {
-      return res.status(401).json({
+    // const user = await User.findById(decoded.userId).select("-password");
+    if (decoded.role !== "admin") {
+      return res.status(403).json({
         success: false,
-        message: "User not found",
+        message: "Admin access only",
       });
     }
 
-    // Attach user to request
-    req.user = user;
+    console.log("decoded", decoded);
+
+    // Attach admin data
+    req.admin = decoded;
 
     next();
   } catch (error) {

@@ -5,13 +5,11 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import axios from "axios";
 import { USER_API_ENDPOINT } from "@/utils/constant";
-import { useDispatch } from "react-redux";
-import {  setUser } from "@/redux/userSlice";
+
 import { useNavigate } from "react-router-dom";
 import { Loader2 } from "lucide-react";
 
 function FormSubmit() {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [input, setInput] = useState({
     fullname: "",
@@ -53,13 +51,12 @@ function FormSubmit() {
         withCredentials: true,
       });
       if (res.data.success) {
+        toast.success(res.data.message || "Dan Details submitted succesfully");
+        navigate("/");
         toast.dismiss();
-        toast.success(res.data.message);
-        dispatch(setUser(res.data.user));
-
-        setTimeout(() => {
-          navigate("/");
-        }, 800);
+        // setTimeout(() => {
+        //   navigate("/");
+        // }, 800);
       }
     } catch (error) {
       toast.error(error?.response?.data?.message);
@@ -160,7 +157,7 @@ function FormSubmit() {
                 Add your payment screenshot
               </Label>
             </div>
-            
+
             <div className="mt-3">
               {loading ? (
                 <Button className="w-full bg-gradient-to-r from-[#FF7A18] to-[#FF4B4B] mt-2">

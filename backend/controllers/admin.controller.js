@@ -2,13 +2,8 @@ import jwt from "jsonwebtoken";
 import { User } from "../model/user.model.js";
 import dotenv from "dotenv";
 dotenv.config();
-// import {
-//   ADMIN_PASSWORD,
-//   ADMIN_USERNAME,
-//   JWT_SECRET_KEY,
-// } from "../utils/constant.js";
 
-export const adminLogin = (req, res) => {
+export const adminLogin = async (req, res) => {
   try {
     const { username, password } = req.body;
     if (!username || !password) {
@@ -27,9 +22,17 @@ export const adminLogin = (req, res) => {
         message: "invalid admin credentials",
       });
     }
-    const token = jwt.sign({ role: "admin" }, process.env.JWT_SECRET_KEY, {
+    const token = jwt.sign({ role: "admin" }, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
+
+    res.cookie("jwt", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+      maxAge: 60 * 60 * 1000,
+    });
+    
 
     return res.status(200).json({
       success: true,
@@ -40,6 +43,32 @@ export const adminLogin = (req, res) => {
     return res.status(500).json({
       success: false,
       message: "internal server error",
+    });
+  }
+};
+
+export const adminLogout = async (req, res) => {
+  //logout -> clear token inside cookied
+
+  try {
+    res.cookie("jwt", "", {
+      httpOnly: true,
+      expires: new Date(0),
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+    });
+
+    res.status(200).json({
+      success: true,
+      message: "Logged Out Successfully",
+    });
+  } catch (error) {
+    console.log("LOGOUT ERROR:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Logout failed",
+      error: error.message,
     });
   }
 };
@@ -59,19 +88,4 @@ export const getAllDonors = async (req, res) => {
       message: "Unable to fetch donors",
     });
   }
-};
-
-export const adminLogout = async (req, res) => {
-  //logout -> clear token inside cookied
-  res.cookie("jwt", "", {
-    httpOnly: true,
-    expires: new Date(0),
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
-  });
-
-  res.status(200).json({
-    success: true,
-    message: "Logged Out Successfully",
-  });
 };

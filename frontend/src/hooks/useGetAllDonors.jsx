@@ -11,18 +11,12 @@ const useGetAllDonors = () => {
   useEffect(() => {
     const fetchDonors = async () => {
       try {
-        const token = localStorage.getItem("adminToken");
-
-        if (!token) {
-          dispatch(setDonors([]));
-          return;
-        }
-
-        const res = await axios.get(`https://temple-donation-bu0g.onrender.com/api/v1/admin/donors`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
+        const res = await axios.get(
+          `http://localhost:8000/api/v1/admin/donors`,
+          {
+            withCredentials: true,
           },
-        });
+        );
 
         // ✅ STORE BACKEND DATA
         dispatch(setDonors(res.data.donors));

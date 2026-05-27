@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(cookieParser());
 const corsOptions = {
-  origin: "https://temple-donation-bu0g.onrender.com",
+  origin: "http://localhost:5173",
   credentials: true,
 };
 app.use(cors(corsOptions));

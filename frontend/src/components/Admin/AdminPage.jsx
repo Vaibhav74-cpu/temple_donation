@@ -1,23 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Input } from "../ui/input";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 import { toast } from "sonner";
 import axios from "axios";
-import { ADMIN_API_ENDPOINT } from "@/utils/constant";
-import useGetAllDonors from "@/hooks/useGetAllDonors";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setAdminInfo } from "@/redux/userSlice";
 
-
-// const ADMIN_USERNAME = "admin";
-// const ADMIN_PASSWORD = "admin";
 function AdminPage() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { adminInfo } = useSelector((state) => state.user);
+  useEffect(() => {
+    if (adminInfo) {
+      navigate("/admin/login/get");
+    }
+  }, [adminInfo]);
   const [input, setInput] = useState({
     username: "",
     password: "",
   });
-  const navigate = useNavigate();
 
   const handleInput = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -26,13 +30,17 @@ function AdminPage() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`https://temple-donation-bu0g.onrender.com/api/v1/admin/login`, {
-        username: input.username,
-        password: input.password,
-      });
-      localStorage.setItem("adminToken", res.data.token);
+      const res = await axios.post(
+        `http://localhost:8000/api/v1/admin/login`,
+        {
+          username: input.username,
+          password: input.password,
+        },
+        { withCredentials: true },
+      );
 
-      toast.success(res.data.message);
+      dispatch(setAdminInfo(res.data));
+      toast.success(res.data.message || "Login succesfulluy");
       navigate("/admin/login/get");
     } catch (error) {
       toast.error(error.response?.data?.message);
