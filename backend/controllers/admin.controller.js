@@ -1,10 +1,12 @@
 import jwt from "jsonwebtoken";
 import { User } from "../model/user.model.js";
-import {
-  ADMIN_PASSWORD,
-  ADMIN_USERNAME,
-  JWT_SECRET_KEY,
-} from "../utils/constant.js";
+import dotenv from "dotenv";
+dotenv.config();
+// import {
+//   ADMIN_PASSWORD,
+//   ADMIN_USERNAME,
+//   JWT_SECRET_KEY,
+// } from "../utils/constant.js";
 
 export const adminLogin = (req, res) => {
   try {
@@ -16,13 +18,16 @@ export const adminLogin = (req, res) => {
       });
     }
 
-    if (username !== ADMIN_USERNAME || password !== ADMIN_PASSWORD) {
+    if (
+      username !== process.env.ADMIN_USERNAME ||
+      password !== process.env.ADMIN_PASSWORD
+    ) {
       return res.status(400).json({
         success: false,
         message: "invalid admin credentials",
       });
     }
-    const token = jwt.sign({ role: "admin" }, JWT_SECRET_KEY, {
+    const token = jwt.sign({ role: "admin" }, process.env.JWT_SECRET_KEY, {
       expiresIn: "1h",
     });
 
@@ -61,7 +66,7 @@ export const adminLogout = async (req, res) => {
   res.cookie("jwt", "", {
     httpOnly: true,
     expires: new Date(0),
-    secure: process.env.NODE_ENV !== "development",
+    secure: process.env.NODE_ENV === "production",
     sameSite: "strict",
   });
 
