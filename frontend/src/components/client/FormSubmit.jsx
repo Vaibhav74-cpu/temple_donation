@@ -44,16 +44,23 @@ function FormSubmit() {
 
     try {
       setLoading(true);
-      const res = await axios.post(`https://temple-donation-6zfh.onrender.com/api/v1/user/post`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
+      const res = await axios.post(
+        `https://temple-donation-6zfh.onrender.com/api/v1/user/post`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          withCredentials: true,
         },
-        withCredentials: true,
-      });
+      );
+      toast.success(res.data.message || "Dan Details submitted succesfully");
+      navigate("/");
+      
       if (res?.data?.success) {
         toast.success(res.data.message || "Dan Details submitted succesfully");
         navigate("/");
-        toast.dismiss();
+        // toast.dismiss();
         // setTimeout(() => {
         //   navigate("/");
         // }, 800);
