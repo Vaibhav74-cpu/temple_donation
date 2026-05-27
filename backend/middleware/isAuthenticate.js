@@ -8,7 +8,7 @@ const isAuthenticate = async (req, res, next) => {
   try {
     let token;
     token = req.cookies.jwt;
-    console.log("token", token);
+    
 
     if (!token) {
       return res.status(401).json({
@@ -26,14 +26,14 @@ const isAuthenticate = async (req, res, next) => {
       });
     }
 
-    console.log("decoded", decoded);
+   
 
     // Attach admin data
     req.admin = decoded;
 
     next();
   } catch (error) {
-    console.log("AUTH ERROR:", error.message);
+    
 
     return res.status(401).json({
       success: false,

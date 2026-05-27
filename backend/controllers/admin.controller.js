@@ -63,7 +63,7 @@ export const adminLogout = async (req, res) => {
       message: "Logged Out Successfully",
     });
   } catch (error) {
-    console.log("LOGOUT ERROR:", error);
+    // console.log("LOGOUT ERROR:", error);
 
     return res.status(500).json({
       success: false,

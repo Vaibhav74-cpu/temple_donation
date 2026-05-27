@@ -50,7 +50,7 @@ function FormSubmit() {
         },
         withCredentials: true,
       });
-      if (res.data.success) {
+      if (res?.data?.success) {
         toast.success(res.data.message || "Dan Details submitted succesfully");
         navigate("/");
         toast.dismiss();
