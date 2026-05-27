@@ -44,7 +44,7 @@ function FormSubmit() {
 
     try {
       setLoading(true);
-      const res = await axios.post(`${USER_API_ENDPOINT}/post`, formData, {
+      const res = await axios.post(`https://temple-donation-6zfh.onrender.com/api/v1/user/post`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

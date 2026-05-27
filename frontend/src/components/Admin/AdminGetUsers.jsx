@@ -30,7 +30,7 @@ function AdminGetUsers() {
   const handleLogout = async (req, res) => {
     try {
       const res = await axios.post(
-        `http://localhost:8000/api/v1/admin/logout`,
+        `https://temple-donation-6zfh.onrender.com/api/v1/admin/logout`,
         {},
         { withCredentials: true },
       );
@@ -46,7 +46,7 @@ function AdminGetUsers() {
     if (window.confirm("Are you sure want to delete this dan data")) {
       try {
         const res = await axios.delete(
-          `http://localhost:8000/api/v1/admin/delete/${id}`,
+          `https://temple-donation-6zfh.onrender.com/api/v1/admin/delete/${id}`,
           {},
           { withCredentials: true },
         );

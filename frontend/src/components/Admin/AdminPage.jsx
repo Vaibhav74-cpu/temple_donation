@@ -31,7 +31,7 @@ function AdminPage() {
     e.preventDefault();
     try {
       const res = await axios.post(
-        `http://localhost:8000/api/v1/admin/login`,
+        `https://temple-donation-6zfh.onrender.com/api/v1/admin/login`,
         {
           username: input.username,
           password: input.password,

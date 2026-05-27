@@ -12,7 +12,7 @@ const useGetAllDonors = () => {
     const fetchDonors = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:8000/api/v1/admin/donors`,
+          `https://temple-donation-6zfh.onrender.com/api/v1/admin/donors`,
           {
             withCredentials: true,
           },
