@@ -31,7 +31,6 @@ export const adminLogin = (req, res) => {
       message: "admin login successfully",
       token,
     });
-
   } catch (error) {
     return res.status(500).json({
       success: false,
@@ -39,7 +38,6 @@ export const adminLogin = (req, res) => {
     });
   }
 };
-
 
 export const getAllDonors = async (req, res) => {
   try {
@@ -56,4 +54,19 @@ export const getAllDonors = async (req, res) => {
       message: "Unable to fetch donors",
     });
   }
+};
+
+export const adminLogout = async (req, res) => {
+  //logout -> clear token inside cookied
+  res.cookie("jwt", "", {
+    httpOnly: true,
+    expires: new Date(0),
+    secure: process.env.NODE_ENV !== "development",
+    sameSite: "strict",
+  });
+
+  res.status(200).json({
+    success: true,
+    message: "Logged Out Successfully",
+  });
 };
