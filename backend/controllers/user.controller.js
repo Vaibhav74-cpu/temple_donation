@@ -1,5 +1,4 @@
-// import cloudinary from "../../../job portal/backend/utils/cloudinary.js";
-// import getDataUri from "../utils/dataUri.js";
+
 import cloudinary from '../utils/cloudinary.js'
 import getDataUri from '../utils/dataUri.js'
 import { User } from "../model/user.model.js";

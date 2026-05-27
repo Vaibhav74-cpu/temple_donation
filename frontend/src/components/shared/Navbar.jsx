@@ -89,7 +89,7 @@ const Navbar = () => {
               DAN
             </Link>
           </li>
-          <li>
+          {/* <li>
             <NavLink
               to="/admin/login"
               className={({ isActive }) =>
@@ -98,7 +98,7 @@ const Navbar = () => {
             >
               ADMIN
             </NavLink>
-          </li>
+          </li> */}
         </ul>
       )}
     </div>
