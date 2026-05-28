@@ -9,7 +9,7 @@ import Reviews from "./Reviews";
 
 function Puja() {
   return (
-    <div className="">
+    <div className="max-w-7xl mx-auto">
       <Navbar />
       <PujaHeroSection />
       <ParticipateProcess />

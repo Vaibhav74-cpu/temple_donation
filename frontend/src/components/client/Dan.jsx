@@ -5,7 +5,7 @@ import DanHeroSection from "./DanHeroSection";
 
 function Dan() {
   return (
-    <div className="">
+    <div className="max-w-7xl mx-auto">
       <Navbar />
       <DanHeroSection />
       <Footer />

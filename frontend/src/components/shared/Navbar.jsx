@@ -5,7 +5,7 @@ import { Link, NavLink } from "react-router-dom";
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   return (
-    <div className=" top-0 z-40 bg-white/80  backdrop-blur-md lg:sticky lg:top-0 lg:z-40">
+    <div className=" bg-white/80  backdrop-blur-md lg:sticky lg:top-0 lg:z-40">
       <div className="flex max-w-7xl justify-between h-16 mx-auto items-center">
         <div>
           <h1 className="text-2xl md:text-3xl font-bold text-[#7b2a0d]">
